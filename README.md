@@ -142,5 +142,3 @@ $INCLUDE (input.asm)
 ### Cách chia sẻ file
 - Dùng git trên repo này: mỗi người commit file của mình, người ghép `git pull`. Nếu chưa quen git thì dùng GitHub Desktop.
 - Mỗi người làm trên nhánh riêng (ví dụ `nguoi2-display`), xong thì tạo Pull Request vào `main`. Cách này tránh ghi đè file của nhau.
-
-Mình có hai gợi ý nhỏ khi up lên GitHub. Một là thay "Người 1–4" bằng tên thật của từng bạn cho dễ theo dõi. Hai là thêm mục "Cách chạy" (mở file SimulIDE, nạp hex nào) sau khi dự án xong, để thầy cô hoặc người khác chạy lại được.
