@@ -43,39 +43,22 @@ START:
 
 MAIN_LOOP:
 
-        ; === TRANG THAI S0: CHO NUT NHAN ===
-        ; WAIT_IDLE chay hieu ung xoay vien LED, tu dong thoat khi nhan nut
-        ; (da chong rung va cho nha nut ben trong WAIT_IDLE)
+        ; === S0: CHO NUT NHAN ===
         LCALL   WAIT_IDLE
 
-        ; === TRANG THAI S1: HIEU UNG QUAY CHAM DAN ===
-        ; Kim tu viet va them vao day sau khi merge
-        ; R2 = mat dang hien (1..6), R3 = delay hien tai (ms)
-        ; Sau hieu ung, Accumulator A chua ket qua ngau nhien (1..6)
+        ; === S1+S2+S3: HIEU UNG + RANDOM + HIEN THI ===
+        LCALL   GET_RANDOM      ; A = 1..6
+        MOV     R4, A           ; Luu vao R4
+        LCALL   EFF_SPIN_AND_BLINK  ; A = so ngau nhien, tu xu ly hieu ung + hien thi
 
-        ; === TRANG THAI S2: LAY SO NGAU NHIEN ===
-        LCALL   GET_RANDOM      ; A = 1..6 (dung thuat toan bo mau >= 252)
-        MOV     R4, A           ; Luu ket qua vao R4 (chi MAIN dung R4)
-
-        ; === TRANG THAI S3: HIEN THI KET QUA VA GIU 3 GIAY ===
-        MOV     A, R4
-        LCALL   DISPLAY         ; Hien so ra LED 7 doan
-
-        ; Giu ket qua 3000 ms (12 lan x 250 ms)
-        MOV     R2, #12
-MAIN_HOLD:
-        MOV     R7, #250
-        LCALL   DELAY_MS
-        DJNZ    R2, MAIN_HOLD
-
-        ; Quay lai vong lap, cho nhan nut lan tiep
         SJMP    MAIN_LOOP
 
 ; ------------------------------------------------------------------------------
 ; INCLUDE CAC MODULE CHUONG TRINH CON
 ; (Dat sau code chinh de CPU khong chay lot vao giua chuong trinh con khi reset)
 ; ------------------------------------------------------------------------------
-$INCLUDE (display.asm)          ; DISPLAY, DELAY_MS, WAIT_IDLE  - tac gia: Khoa
-$INCLUDE (input.asm)            ; RND_INIT_TIMER0, GET_RANDOM   - tac gia: Cuong
+$INCLUDE (display.asm)          ; DISPLAY, DELAY_MS, WAIT_IDLE      - tac gia: Khoa
+$INCLUDE (input.asm)            ; RND_INIT_TIMER0, GET_RANDOM       - tac gia: Cuong
+$INCLUDE (effect.asm)           ; EFF_SPIN_AND_BLINK                - tac gia: Kim
 
         END
