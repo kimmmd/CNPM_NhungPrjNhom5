@@ -97,6 +97,24 @@
 - [ ] (Tùy chọn) Ghi 50–100 kết quả nhấn thật trong SimulIDE, nhập vào Python, vẽ so với lý thuyết.
 - [ ] (Tùy chọn, khó) Nếu SimulIDE có UART thì cho 8051 gửi kết quả ra serial để Python đọc tự động.
 
+#### Chạy mô phỏng Python
+
+```powershell
+python python\dice_8051_sim.py
+```
+
+Giao diện Tkinter vẽ histogram và LED 7 đoạn; không cần cài thêm thư viện. Có thể chạy nhiều lượt với seed cố định và in bảng thay vì mở giao diện:
+
+```powershell
+python python\dice_8051_sim.py --trials 100000 --seed 8051 --no-gui
+```
+
+Để so sánh kết quả nhấn thật, truyền file CSV hoặc TXT chỉ chứa các số từ 1 đến 6 (phân cách bằng dấu phẩy hoặc xuống dòng):
+
+```powershell
+python python\dice_8051_sim.py --samples ket_qua.csv
+```
+
 ### Phân công
 - Người 1: Kim (main, hiệu ứng đếm, ghép code).
 - Người 2: Khoa (display, delay, hiệu ứng chờ).
